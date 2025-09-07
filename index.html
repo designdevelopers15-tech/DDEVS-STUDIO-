@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>DDEVS - Creative Studio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+    :root {
+      --bg-dark: #0a0a0f;
+      --text-dark: #ffffff;
+      --accent: linear-gradient(135deg, #00ffea, #ff00f7, #ffbb00);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --btn-bg: #00ffea;
+      --btn-hover: #00d7b3;
+      --input-bg: #1c1c1c;
+      --input-border: #333;
+      --input-text: #fff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-size: clamp(14px, 2vw, 16px);
+    }
+
+    button, input, textarea {
+      outline: none !important;
+    }
+    button:focus, input:focus, textarea:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #111;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00ffea, 0 0 10px #ff00f7; }
+      to { text-shadow: 0 0 15px #ffbb00, 0 0 30px #00ffea; }
+    }
+
+    .menu {
+      font-size: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      right: 1rem;
+      top: 3.5rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      overflow: hidden;
+      animation: fadeIn 0.4s ease;
+      z-index: 1500;
+    }
+
+    .dropdown a, .dropdown button {
+      padding: 0.8rem 1rem;
+      color: white;
+      text-decoration: none;
+      text-align: left;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .dropdown a:hover, .dropdown button:hover {
+      background: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 65vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=70") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.65);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      padding: 0 1rem;
+      animation: fadeUp 1.5s ease forwards;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .order-btn {
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      background: var(--btn-bg);
+      color: #111;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .order-btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sections */
+    section {
+      padding: 2.5rem 1.2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.5rem;
+    }
+
+    .services, .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .card, .testimonial {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+    }
+
+    .card h3 {
+      margin-bottom: 0.6rem;
+      color: #00ffea;
+      font-size: 1rem;
+    }
+
+    .testimonial {
+      border-left: 3px solid;
+      border-image: var(--accent) 1;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    /* Fullscreen Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .modal-box {
+      background: #111;
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 100%;
+      animation: zoomIn 0.5s ease;
+      color: #fff;
+      text-align: center;
+      margin: auto;
+      box-sizing: border-box;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-box h3 {
+      margin-bottom: 1rem;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-box p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #ddd;
+      text-align: justify;
+    }
+
+    .modal-box input,
+    .modal-box textarea {
+      width: 100%;
+      margin-bottom: 0.8rem;
+      padding: 0.8rem;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--input-text);
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .modal-box button {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--btn-bg);
+      color: #111;
+      margin-top: 0.4rem;
+    }
+
+    .modal-box button:hover {
+      background: var(--btn-hover);
+    }
+
+    .close-btn {
+      background: #ff4b5c;
+      color: #fff !important;
+    }
+
+    .close-btn:hover {
+      background: #ff1f39;
+    }
+
+    /* Success */
+    .order-success {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: var(--btn-bg);
+      color: #111;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      z-index: 4000;
+      animation: popIn 0.6s forwards;
+    }
+
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      60% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* Android App Size Fix */
+    @media (max-width: 600px) {
+      .modal-box {
+        width: 100%;
+        max-width: 95%;
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DDEVS - Creative Studio</h1>
+    <div class="menu" onclick="toggleMenu()">⋮</div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="#services">Our Work</a>
+      <button onclick="openAbout()">About Us</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Designing the Future, Today</h2>
+      <p>We create logos, automobile concepts, and packaging that inspire innovation.</p>
+      <button class="order-btn" onclick="openOrder()">Order Now</button>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="card"><h3>Logo Design</h3><p>Creative logos to represent your brand.</p></div>
+      <div class="card"><h3>Automobile Design</h3><p>Innovative automobile concept designs.</p></div>
+      <div class="card"><h3>Product Packaging</h3><p>Attractive packaging to make your products stand out.</p></div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What People Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">"DDEVS made my dream logo a reality!"</div>
+      <div class="testimonial">"The automobile design was futuristic & stunning."</div>
+      <div class="testimonial">"Packaging design boosted my sales instantly."</div>
+    </div>
+  </section>
+
+  <!-- About Modal -->
+  <div class="modal" id="aboutModal">
+    <div class="modal-box">
+      <h3>About DDEVS STUDIO</h3>
+      <p><b>DDEVS Studio</b> is a creative hub where imagination meets innovation. 
+      We specialize in branding, logo design, automobile concepts, and packaging 
+      that go beyond the ordinary. Every project is carefully crafted to 
+      reflect creativity, strategy, and futuristic design principles.</p>
+      <p>Our mission is to deliver designs that connect with audiences 
+      and drive growth. At DDEVS, design is more than visuals – it’s an experience.</p>
+      <button class="close-btn" onclick="closeAbout()">Close</button>
+    </div>
+  </div>
+
+  <!-- Order Modal -->
+  <div class="modal" id="orderModal">
+    <div class="modal-box">
+      <h3>Place Your Order</h3>
+      <form id="orderForm">
+        <input type="text" name="Name" placeholder="Your Name" required>
+        <input type="email" name="Email" placeholder="Your Email" required>
+        <input type="tel" name="Mobile" placeholder="Your Mobile Number" required>
+        <textarea name="Order" rows="4" placeholder="Order Description" required></textarea>
+        <button type="submit">Submit Order</button>
+      </form>
+      <button class="close-btn" onclick="closeOrder()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Menu toggle
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+    window.addEventListener('click', function(event) {
+      const menu = document.getElementById("dropdownMenu");
+      if (!event.target.closest('.menu') && !event.target.closest('.dropdown')) {
+        menu.style.display = "none";
+      }
+    });
+
+    // Modals
+    function openAbout() { document.getElementById("aboutModal").style.display = "flex"; }
+    function closeAbout() { document.getElementById("aboutModal").style.display = "none"; }
+    function openOrder() { document.getElementById("orderModal").style.display = "flex"; }
+    function closeOrder() { document.getElementById("orderModal").style.display = "none"; }
+
+    // Order form
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = encodeURIComponent(form.Name.value);
+      const email = encodeURIComponent(form.Email.value);
+      const mobile = encodeURIComponent(form.Mobile.value);
+      const order = encodeURIComponent(form.Order.value);
+      const subject = encodeURIComponent("New Order from DDEVS Website");
+      const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AMobile: ${mobile}%0D%0AOrder: ${order}`;
+      window.location.href = `mailto:designdevelopers15@gmail.com?subject=${subject}&body=${body}`;
+      closeOrder();
+      showSuccessMessage();
+    });
+
+    function showSuccessMessage() {
+      const success = document.createElement("div");
+      success.className = "order-success";
+      success.innerText = "✅ Your order has been placed!";
+      document.body.appendChild(success);
+      setTimeout(() => {
+        success.style.opacity = "0";
+        setTimeout(() => success.remove(), 600);
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
+
